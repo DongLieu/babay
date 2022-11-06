@@ -19,7 +19,7 @@ RUN pip install toml-cli
 
 COPY --from=go-builder /code/bin/babyd /usr/bin/babyd
 
-COPY homework/* /opt/
+COPY answer/* /opt/
 RUN chmod +x /opt/*.sh
 
 WORKDIR /opt
