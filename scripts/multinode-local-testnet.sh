@@ -18,6 +18,10 @@ cat $HOME/.baby/node0/config/genesis.json | jq '.app_state["gov"]["deposit_param
 cat $HOME/.baby/node0/config/genesis.json | jq '.app_state["mint"]["params"]["mint_denom"]="ubaby"' > $HOME/.baby/node0/config/tmp_genesis.json && mv $HOME/.baby/node0/config/tmp_genesis.json $HOME/.baby/node0/config/genesis.json
 
 # change app.toml values
+# RPC:tcp://127.0.0.1:26657
+# ABCI:tcp://127.0.0.1:26658 proxy_app = "tcp://127.0.0.1:26658"
+# connections:tcp://0.0.0.0:26656
+# prometheus_listen_addr = ":26660"
 
 # validator 1
 sed -i -E 's|swagger = false|swagger = true|g' $HOME/.baby/node0/config/app.toml
@@ -38,7 +42,7 @@ sed -i -E 's|swagger = false|swagger = true|g' $HOME/.baby/node2/config/app.toml
 
 # validator1
 sed -i -E 's|allow_duplicate_ip = false|allow_duplicate_ip = true|g' $HOME/.baby/node0/config/config.toml
-# validator2
+# validator2 ABCI
 sed -i -E 's|tcp://127.0.0.1:26658|tcp://127.0.0.1:26655|g' $HOME/.baby/node1/config/config.toml
 sed -i -E 's|allow_duplicate_ip = false|allow_duplicate_ip = true|g' $HOME/.baby/node1/config/config.toml
 # validator3
