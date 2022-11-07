@@ -28,5 +28,13 @@ WORKDIR /opt
 EXPOSE 1350
 # tendermint rpc
 EXPOSE 1711
+# rest server
+# EXPOSE 1317
+# # tendermint rpc
+# EXPOSE 26657
+# # p2p address
+# EXPOSE 26656
+# # gRPC address
+# EXPOSE 9090
 
 CMD ["babyd", "version"]

@@ -22,7 +22,9 @@ babyd config chain-id $CHAINID
 
 # determine if user wants to recorver or create new
 babyd keys add $KEY --keyring-backend $KEYRING --algo $KEYALGO
-
+babyd keys add $VALIDATOR_1 --keyring-backend $KEYRING --algo $KEYALGO
+babyd keys add $VALIDATOR_2 --keyring-backend $KEYRING --algo $KEYALGO
+babyd keys add $VALIDATOR_3 --keyring-backend $KEYRING --algo $KEYALGO
 # Initialize chain
 babyd init $MONIKER --chain-id $CHAINID
 
@@ -40,18 +42,26 @@ sed -i -E 's|enable = false|enable = true|g' $HOME/.baby/config/app.toml
 # Allocate genesis accounts (cosmos formatted addresses)
 babyd add-genesis-account $KEY 1000000000000000ubaby --keyring-backend $KEYRING
 
+babyd add-genesis-account $VALIDATOR_1 100000000000000ubaby --keyring-backend $KEYRING
+
+babyd add-genesis-account $VALIDATOR_2 100000000000000ubaby --keyring-backend $KEYRING
+
+babyd add-genesis-account $VALIDATOR_3 100000000000000ubaby --keyring-backend $KEYRING
+
 # Sign genesis transaction
 babyd gentx $KEY 1000000ubaby --keyring-backend $KEYRING --chain-id $CHAINID
+
+# babyd gentx $VALIDATOR_1 1000000ubaby --keyring-backend $KEYRING --chain-id $CHAINID
+# 
+# babyd gentx $VALIDATOR_2 1000000ubaby --keyring-backend $KEYRING --chain-id $CHAINID
+# 
+# babyd gentx $VALIDATOR_3 1000000ubaby --keyring-backend $KEYRING --chain-id $CHAINID
 
 # Collect genesis tx
 babyd collect-gentxs
 
 # Run this to ensure everything worked and that the genesis file is setup correctly
 babyd validate-genesis
-
-babyd keys add $VALIDATOR_1
-babyd keys add $VALIDATOR_2
-babyd keys add $VALIDATOR_3
 
 babyd keys list
 
